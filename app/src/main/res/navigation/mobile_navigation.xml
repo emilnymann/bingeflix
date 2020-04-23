@@ -13,9 +13,9 @@
 
     <fragment
             android:id="@+id/nav_gallery"
-            android:name="com.datamatiker.bingeflix.ui.gallery.GalleryFragment"
-            android:label="@string/menu_gallery"
-            tools:layout="@layout/fragment_gallery"/>
+            android:name="com.datamatiker.bingeflix.ui.LikeDislike.LikeDislikeFragment"
+            android:label="@string/menu_likeDislike"
+            tools:layout="@layout/fragment_likeDislike"/>
 
     <fragment
             android:id="@+id/nav_slideshow"
