@@ -24,6 +24,16 @@ public class TVShow {
     private String rating;
     private ArrayList<Actor> featuredActors;
 
+    public TVShow() {
+        this.id = 0;
+        this.title = "NA";
+    }
+
+    public TVShow(int id, String title) {
+        this.id = id;
+        this.title = title;
+    }
+
     public TVShow(int id, String title, String synopsis, Date firstAired, Date lastAired, int numSeasons, int numEpisodes, int runtime, boolean ongoing, Language language, String parentalGuide, ArrayList<Genre> genres, ArrayList<Network> networks, String poster, String imdbUrl, String tvdbUrl, String rating, ArrayList<Actor> featuredActors) {
         this.id = id;
         this.title = title;
