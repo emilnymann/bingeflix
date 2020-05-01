@@ -1,4 +1,4 @@
-package com.datamatiker.bingeflix;
+package com.datamatiker.bingeflix.model;
 
 public class Actor {
     private String name;

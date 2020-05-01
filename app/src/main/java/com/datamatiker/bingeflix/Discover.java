@@ -35,10 +35,6 @@ public class Discover extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        TVDB tvdb = new TVDB();
-        TVShow test = tvdb.getShowById(1396);
-        System.out.println("Title: " + test.getTitle() + ", ID: " + test.getId());
-
     }
 
     @Override
