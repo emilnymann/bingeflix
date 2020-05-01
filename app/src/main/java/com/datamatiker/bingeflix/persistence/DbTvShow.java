@@ -3,6 +3,7 @@ package com.datamatiker.bingeflix.persistence;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -26,6 +27,7 @@ public class DbTvShow {
     public ArrayList<String> networks;
     public String posterPath;
     public double voteAverage;
+    public LocalDateTime cacheDate;
 
     public DbTvShow(int id, String name, String overview, int numberOfSeasons, int numberOfEpisodes, int episodeRuntime, String status, String originalLanguage, String posterPath, double voteAverage) {
         this.id = id;
@@ -38,5 +40,6 @@ public class DbTvShow {
         this.originalLanguage = originalLanguage;
         this.posterPath = posterPath;
         this.voteAverage = voteAverage;
+        this.cacheDate = LocalDateTime.now();
     }
 }

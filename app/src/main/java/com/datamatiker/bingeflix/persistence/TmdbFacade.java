@@ -23,7 +23,7 @@ public class TmdbFacade {
 
     private static final String APIKEY = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkNjBiZGU0MjUzODk4MGExNGRhNDhjNGRmNmM2MDlmZiIsInN1YiI6IjVlMGZjZmYxNjYzYjg3MDAxNzgwNDRmYSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.QrT1L9EJFzkmNpaA5cE8Jzzh4RdJe8CV05NSi-Zh1y4";
 
-    public void getShowById(int id, Context context) {
+    public void cacheShowById(int id, Context context) {
 
         AndroidNetworking.get("https://api.themoviedb.org/3/tv/{seriesId}")
                 .addPathParameter("seriesId", String.valueOf(id))
@@ -37,7 +37,7 @@ public class TmdbFacade {
                     public void onResponse(JSONObject response) {
 
                         TvShowRepository tvShowRepository = new TvShowRepository(context);
-
+                        tvShowRepository.addNewTvShow(response);
 
                     }
 

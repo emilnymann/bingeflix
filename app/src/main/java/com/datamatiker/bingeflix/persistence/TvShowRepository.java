@@ -7,10 +7,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class TvShowRepository {
@@ -91,6 +93,14 @@ public class TvShowRepository {
     }
 
     public LiveData<DbTvShow> getTvShowById(int id) {
+
+        TmdbFacade tmdbFacade = new TmdbFacade();
+        LiveData<DbTvShow> dbTvShowLiveData = DbDatabase.getInstance(context).dbTvShowDAO().getTvShowById(id);
+
+        if (dbTvShowLiveData == null || dbTvShowLiveData.getValue().cacheDate.isBefore(LocalDateTime.now().minusHours(24l))) {
+            tmdbFacade.cacheShowById(id, context);
+        }
+
         return DbDatabase.getInstance(context).dbTvShowDAO().getTvShowById(id);
     }
 
