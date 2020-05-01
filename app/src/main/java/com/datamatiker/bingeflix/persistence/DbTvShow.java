@@ -2,8 +2,8 @@ package com.datamatiker.bingeflix.persistence;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-import com.datamatiker.bingeflix.model.Genres;
-import com.datamatiker.bingeflix.model.Networks;
+import androidx.room.TypeConverters;
+import com.datamatiker.bingeflix.model.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -25,11 +25,14 @@ public class DbTvShow {
     public String status;
     public String homepage;
     public String originalLanguage;
+    @TypeConverters(GenreConverter.class)
     public Genres genres;
+    @TypeConverters(NetworkConverter.class)
     public Networks networks;
     public String posterPath;
     public double voteAverage;
-    public String cacheDate;
+    @TypeConverters(LocalDateTimeConverter.class)
+    public LocalDateTime cacheDate;
 
     public DbTvShow(int id, String name, String overview, int numberOfSeasons, int numberOfEpisodes, int episodeRuntime, String status, String originalLanguage, String posterPath, double voteAverage) {
         this.id = id;

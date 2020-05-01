@@ -3,6 +3,9 @@ package com.datamatiker.bingeflix.persistence;
 import android.content.Context;
 import android.os.AsyncTask;
 import androidx.lifecycle.LiveData;
+import com.datamatiker.bingeflix.model.GenreConverter;
+import com.datamatiker.bingeflix.model.Genres;
+import com.datamatiker.bingeflix.model.Networks;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -63,7 +66,7 @@ public class TvShowRepository {
                         genreList.add(genre.getString("name"));
                     }
 
-                    tvShow.genres = genreList;
+                    tvShow.genres = new Genres(genreList);
                     
                 }
 
@@ -76,7 +79,7 @@ public class TvShowRepository {
                         networkList.add(genre.getString("name"));
                     }
 
-                    tvShow.networks = networkList;
+                    tvShow.networks = new Networks(networkList);
 
                 }
 
