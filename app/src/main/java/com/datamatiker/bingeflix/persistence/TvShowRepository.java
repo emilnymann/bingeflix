@@ -18,6 +18,7 @@ import java.util.List;
 public class TvShowRepository {
 
     private Context context;
+    private static final long cacheTime = 24l;
 
     public TvShowRepository(Context context) {
         this.context = context.getApplicationContext();
@@ -97,7 +98,7 @@ public class TvShowRepository {
         TmdbFacade tmdbFacade = new TmdbFacade();
         LiveData<DbTvShow> dbTvShowLiveData = DbDatabase.getInstance(context).dbTvShowDAO().getTvShowById(id);
 
-        if (dbTvShowLiveData == null || dbTvShowLiveData.getValue().cacheDate.isBefore(LocalDateTime.now().minusHours(24l))) {
+        if (dbTvShowLiveData == null || dbTvShowLiveData.getValue().cacheDate.isBefore(LocalDateTime.now().minusHours(cacheTime))) {
             tmdbFacade.cacheShowById(id, context);
         }
 
