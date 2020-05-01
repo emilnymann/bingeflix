@@ -5,7 +5,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@Database(entities = DbTvShow.class, version = 1)
+@Database(entities = DbTvShow.class, version = 2)
 public abstract class DbDatabase extends RoomDatabase {
     public abstract DbTvShowDAO dbTvShowDAO();
 
