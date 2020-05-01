@@ -9,14 +9,14 @@ import java.util.Arrays;
 public class NetworkConverter {
 
     @TypeConverter
-    public Networks storedStringToGenres(String value) {
+    public Networks storedStringToNetworks(String value) {
         ArrayList<String> networks = new ArrayList<>();
         networks.addAll(Arrays.asList(value.split("\\s*,\\s*")));
         return new Networks(networks);
     }
 
     @TypeConverter
-    public String genresToStoredString(Networks networks) {
+    public String networksToStoredString(Networks networks) {
         String value = "";
 
         for (String network : networks.getNetworks()) {

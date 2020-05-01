@@ -5,17 +5,8 @@ import android.util.Log;
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
-import com.androidnetworking.interfaces.JSONArrayRequestListener;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
-import com.google.gson.JsonArray;
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.HashMap;
 
 import static android.content.ContentValues.TAG;
 
@@ -45,6 +36,32 @@ public class TmdbFacade {
                     @Override
                     public void onError(ANError anError) {
                         System.out.println("FAILLLLLLLLL");
+                    }
+                });
+
+    }
+
+    public void cacheApiConfig(Context context) {
+
+        AndroidNetworking.get("https://api.themoviedb.org/3/configuration")
+                .addHeaders("Content-Type", "application/json;charset=utf-8")
+                .addHeaders("Authorization", "Bearer " + APIKEY)
+                .addHeaders("Accept", "application/json")
+                .setPriority(Priority.LOW)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        ApiConfigRepository apiConfigRepository = new ApiConfigRepository(context);
+                        Log.d(TAG, "onResponse: " + response.toString());
+                        apiConfigRepository.addApiConfig(response);
+
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+
                     }
                 });
 

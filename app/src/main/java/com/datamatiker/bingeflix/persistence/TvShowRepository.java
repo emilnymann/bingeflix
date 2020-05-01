@@ -5,7 +5,6 @@ import android.os.AsyncTask;
 import android.util.Log;
 import androidx.lifecycle.LiveData;
 import com.datamatiker.bingeflix.event.GetTvShowEvent;
-import com.datamatiker.bingeflix.model.GenreConverter;
 import com.datamatiker.bingeflix.model.Genres;
 import com.datamatiker.bingeflix.model.Networks;
 import org.greenrobot.eventbus.EventBus;
@@ -13,21 +12,16 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import static android.content.ContentValues.TAG;
 
 public class TvShowRepository {
 
     private Context context;
-    private static final long cacheTime = 24l;
+    private static final long cacheTime = 24L;
 
     public TvShowRepository(Context context) {
         this.context = context.getApplicationContext();
@@ -90,7 +84,7 @@ public class TvShowRepository {
                 }
 
                 DbDatabase.getInstance(context).dbTvShowDAO().insertTvShow(tvShow);
-                EventBus.getDefault().post(new GetTvShowEvent(tvShow));
+                getTvShowById(tvShow.id);
 
             } catch (JSONException e) {
                 e.printStackTrace();
