@@ -4,9 +4,11 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 import androidx.lifecycle.LiveData;
+import com.datamatiker.bingeflix.event.GetTvShowEvent;
 import com.datamatiker.bingeflix.model.GenreConverter;
 import com.datamatiker.bingeflix.model.Genres;
 import com.datamatiker.bingeflix.model.Networks;
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -88,6 +90,7 @@ public class TvShowRepository {
                 }
 
                 DbDatabase.getInstance(context).dbTvShowDAO().insertTvShow(tvShow);
+                EventBus.getDefault().post(new GetTvShowEvent(tvShow));
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -96,20 +99,19 @@ public class TvShowRepository {
         });
     }
 
-    public DbTvShow getTvShowById(int id) {
-
-        TmdbFacade tmdbFacade = new TmdbFacade();
+    public void getTvShowById(int id) {
         AsyncTask.execute(() -> {
+            TmdbFacade tmdbFacade = new TmdbFacade();
             DbTvShow dbTvShow = DbDatabase.getInstance(context).dbTvShowDAO().getTvShowById(id);
 
             if (dbTvShow == null) {
                 tmdbFacade.cacheShowById(id, context);
             } else if (dbTvShow.cacheDate.isBefore(LocalDateTime.now().minusHours(cacheTime))) {
-                Log.d(TAG, "getTvShowById: Cache has expired");
+                Log.d(TAG, "getTvShowById: Cache has expired"); // TODO: implement database update when cache is expired
+            } else {
+                EventBus.getDefault().post(new GetTvShowEvent(dbTvShow));
             }
         });
-
-        return DbDatabase.getInstance(context).dbTvShowDAO().getTvShowById(id);
     }
 
     public List<DbTvShow> getAllTvShows() {

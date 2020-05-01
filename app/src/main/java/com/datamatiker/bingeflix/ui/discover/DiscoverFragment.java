@@ -24,10 +24,4 @@ public class DiscoverFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_discover, container, false);
         return root;
     }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        Log.d(TAG, "onCreateView: " + DiscoverViewModel.getTvShow());
-    }
 }
