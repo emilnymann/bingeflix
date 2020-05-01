@@ -15,8 +15,8 @@ public class DbTvShow {
 
     public String name;
     public String overview;
-    public Date firstAirDate;
-    public Date lastAirDate;
+    public String firstAirDate;
+    public String lastAirDate;
     public int numberOfSeasons;
     public int numberOfEpisodes;
     public int episodeRuntime;

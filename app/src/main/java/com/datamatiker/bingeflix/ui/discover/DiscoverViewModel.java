@@ -1,19 +1,24 @@
 package com.datamatiker.bingeflix.ui.discover;
 
+import android.app.Application;
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
+import com.datamatiker.bingeflix.persistence.DbTvShow;
+import com.datamatiker.bingeflix.persistence.TvShowRepository;
 
-public class DiscoverViewModel extends ViewModel {
+public class DiscoverViewModel extends AndroidViewModel {
 
-    private MutableLiveData<String> mText;
+    private TvShowRepository tvShowRepository;
+    private LiveData<DbTvShow> tvShowTest;
 
-    public DiscoverViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is the Discover page");
+    public DiscoverViewModel(@NonNull Application application) {
+        super(application);
+        tvShowRepository = new TvShowRepository(application.getApplicationContext());
+        tvShowTest = tvShowRepository.getTvShowById(1396);
     }
 
-    public LiveData<String> getText() {
-        return mText;
+    public LiveData<DbTvShow> getTvShow() {
+       return tvShowTest;
     }
 }

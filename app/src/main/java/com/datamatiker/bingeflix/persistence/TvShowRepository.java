@@ -29,8 +29,6 @@ public class TvShowRepository {
 
             try {
 
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
                 DbTvShow tvShow = new DbTvShow(
                         jsonObject.getInt("id"),
                         jsonObject.getString("name"),
@@ -45,11 +43,11 @@ public class TvShowRepository {
                 );
 
                 if (!jsonObject.isNull("first_air_date")) {
-                    tvShow.firstAirDate = dateFormat.parse(jsonObject.getString("first_air_date"));
+                    tvShow.firstAirDate = jsonObject.getString("first_air_date");
                 }
 
                 if (!jsonObject.isNull("last_air_date")) {
-                    tvShow.lastAirDate = dateFormat.parse(jsonObject.getString("last_air_date"));
+                    tvShow.lastAirDate = jsonObject.getString("last_air_date");
                 }
 
                 if (!jsonObject.isNull("homepage")) {
@@ -85,8 +83,6 @@ public class TvShowRepository {
                 DbDatabase.getInstance(context).dbTvShowDAO().insertTvShow(tvShow);
 
             } catch (JSONException e) {
-                e.printStackTrace();
-            } catch (ParseException e) {
                 e.printStackTrace();
             }
 
