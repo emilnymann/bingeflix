@@ -15,10 +15,10 @@ public interface DbTvShowDAO {
     void insertTvShow(DbTvShow... DbTvShows);
 
     @Query("SELECT * from DbTvShow")
-    LiveData<List<DbTvShow>> getAllTvShows();
+    List<DbTvShow> getAllTvShows();
 
     @Query("SELECT * from DbTvShow WHERE id = :id")
-    LiveData<DbTvShow> getTvShowById(int id);
+    DbTvShow getTvShowById(int id);
 
     @Query("SELECT COUNT(*) from DbTvShow")
     LiveData<Integer> countTvShows();

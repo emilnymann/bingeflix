@@ -37,6 +37,7 @@ public class TmdbFacade {
                     public void onResponse(JSONObject response) {
 
                         TvShowRepository tvShowRepository = new TvShowRepository(context);
+                        Log.d(TAG, "onResponse: " + response.toString());
                         tvShowRepository.addNewTvShow(response);
 
                     }

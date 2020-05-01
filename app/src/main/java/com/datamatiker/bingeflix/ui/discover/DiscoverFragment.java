@@ -22,8 +22,12 @@ public class DiscoverFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         DiscoverViewModel = ViewModelProviders.of(this).get(DiscoverViewModel.class);
         View root = inflater.inflate(R.layout.fragment_discover, container, false);
-        TextView textView = getView().findViewById(R.id.text_home);
-        Log.d(TAG, "onCreateView: " + DiscoverViewModel.getTvShow());
         return root;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d(TAG, "onCreateView: " + DiscoverViewModel.getTvShow());
     }
 }

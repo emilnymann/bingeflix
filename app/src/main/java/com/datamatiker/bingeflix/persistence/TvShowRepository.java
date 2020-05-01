@@ -2,6 +2,7 @@ package com.datamatiker.bingeflix.persistence;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 import androidx.lifecycle.LiveData;
 import com.datamatiker.bingeflix.model.GenreConverter;
 import com.datamatiker.bingeflix.model.Genres;
@@ -17,6 +18,9 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
+import static android.content.ContentValues.TAG;
 
 public class TvShowRepository {
 
@@ -92,19 +96,23 @@ public class TvShowRepository {
         });
     }
 
-    public LiveData<DbTvShow> getTvShowById(int id) {
+    public DbTvShow getTvShowById(int id) {
 
         TmdbFacade tmdbFacade = new TmdbFacade();
-        LiveData<DbTvShow> dbTvShowLiveData = DbDatabase.getInstance(context).dbTvShowDAO().getTvShowById(id);
+        AsyncTask.execute(() -> {
+            DbTvShow dbTvShow = DbDatabase.getInstance(context).dbTvShowDAO().getTvShowById(id);
 
-        if (dbTvShowLiveData == null || dbTvShowLiveData.getValue().cacheDate.isBefore(LocalDateTime.now().minusHours(cacheTime))) {
-            tmdbFacade.cacheShowById(id, context);
-        }
+            if (dbTvShow == null) {
+                tmdbFacade.cacheShowById(id, context);
+            } else if (dbTvShow.cacheDate.isBefore(LocalDateTime.now().minusHours(cacheTime))) {
+                Log.d(TAG, "getTvShowById: Cache has expired");
+            }
+        });
 
         return DbDatabase.getInstance(context).dbTvShowDAO().getTvShowById(id);
     }
 
-    public LiveData<List<DbTvShow>> getAllTvShows() {
+    public List<DbTvShow> getAllTvShows() {
         return DbDatabase.getInstance(context).dbTvShowDAO().getAllTvShows();
     }
 

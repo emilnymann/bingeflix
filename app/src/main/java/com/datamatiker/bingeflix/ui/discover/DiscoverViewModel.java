@@ -10,7 +10,7 @@ import com.datamatiker.bingeflix.persistence.TvShowRepository;
 public class DiscoverViewModel extends AndroidViewModel {
 
     private TvShowRepository tvShowRepository;
-    private LiveData<DbTvShow> tvShowTest;
+    private DbTvShow tvShowTest;
 
     public DiscoverViewModel(@NonNull Application application) {
         super(application);
@@ -18,7 +18,7 @@ public class DiscoverViewModel extends AndroidViewModel {
         tvShowTest = tvShowRepository.getTvShowById(1396);
     }
 
-    public LiveData<DbTvShow> getTvShow() {
+    public DbTvShow getTvShow() {
        return tvShowTest;
     }
 }
